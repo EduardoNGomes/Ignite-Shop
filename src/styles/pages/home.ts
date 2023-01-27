@@ -24,6 +24,10 @@ export const Product = styled('div', {
     objectFit:'cover'
   },
 
+  div: {
+    display:'flex',
+    justifyContent:'space-between',
+  },
   footer: {
     position: 'absolute',
     bottom:'0.25rem',
@@ -33,9 +37,6 @@ export const Product = styled('div', {
 
     borderRadius:6,
 
-    display:'flex',
-    alignItems:'center',
-    justifyContent:'space-between',
 
     backgroundColor: 'rgba(0,0,0,0.6)',
 
@@ -44,17 +45,7 @@ export const Product = styled('div', {
     transition:'all .2s ease-in-out',
 
 
-    strong: {
-      fontSize:'$lg',
-      color:'$gray100'
-    },
 
-    span: {
-      fontSize:'$xl',
-      fontWeight:'bold',
-      color:'$green300',
-
-    }
   },
 
   '&:hover': {
@@ -63,4 +54,47 @@ export const Product = styled('div', {
       opacity:1
     }
   }
+})
+
+export const InfoContainer = styled('div', {
+  display:'flex',
+  flexDirection:'column',
+  justifyContent:'flex-start',
+  alignItems:'flex-start',
+  gap:4,
+
+
+  strong: {
+    fontSize:'$lg',
+    color:'$gray100'
+  },
+
+  span: {
+    fontSize:'$xl',
+    fontWeight:'bold',
+    color:'$green300',
+
+  }
+})
+
+
+export const ShopCartContainer = styled('button', {
+  padding: 12,
+  border: 'none',
+  cursor:'pointer',
+  borderRadius:6,
+  background:'$green300',
+
+  svg: {
+    color:'$white',
+  },
+
+  transition:'all .3s ease-in-out ',
+
+
+  '&:hover':{
+    background:'$green500',
+
+  }
+
 })
