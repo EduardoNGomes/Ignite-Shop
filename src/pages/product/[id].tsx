@@ -41,6 +41,10 @@ export default function Product({product}:ProductProps){
     }
   }
 
+  function handleAddItem(product:ProductsProps){
+    addItem(product)
+  }
+
   return(
     <>
       <Head>

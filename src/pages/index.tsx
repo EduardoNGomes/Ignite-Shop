@@ -20,22 +20,31 @@ import { shopCartContext } from '../context/shopCartContext'
 
 
 
-interface HomeProps {
-  products: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-  }[]
+interface ProductsProps {
+  id: string;
+  name: string;
+  imageUrl: string;
+  price: string;
 }
 
+interface HomeProps {
+  products: ProductsProps[]
+}
+
+
 export default function Home({products}:HomeProps) {
+  const {shopCart, addItem, removeItem} = useContext(shopCartContext)
+  
   const [sliderRef] = useKeenSlider({
     slides: {
       perView:3,
       spacing: 48
     }
   });
+
+  function handleAddItem(product:ProductsProps){
+    addItem(product)
+  }
 
   return (
     <>
@@ -46,29 +55,30 @@ export default function Home({products}:HomeProps) {
         {
           products.map(product => {
             return (
-              <Link
-              key={product.id}
-              href={`/product/${product.id}`}
-              prefetch={false}
+              <Product 
+                key={product.id}
+                className="keen-slider__slide" 
               >
-                <Product 
-                  className="keen-slider__slide" >
-                  
-                  <Image src={product.imageUrl} width="520" height="480" alt=""/>
-        
-                  <footer>
-                    <div>
-                      <InfoContainer>
-                        <strong> {product.name}</strong>
-                        <span>{product.price}</span>
-                      </InfoContainer>
-                      <ShopCartContainer>
-                        <Handbag size={32} weight="bold" />
-                      </ShopCartContainer>
-                    </div>
-                  </footer>
-                </Product>
+
+              <Link
+                href={`/product/${product.id}`}
+                prefetch={false}
+              >
+                <Image src={product.imageUrl} width="520" height="480" alt=""/>
               </Link>
+                  
+              <footer>
+                <div>
+                  <InfoContainer>
+                    <strong> {product.name}</strong>
+                    <span>{product.price}</span>
+                  </InfoContainer>
+                  <ShopCartContainer onClick={() => handleAddItem(product)}>
+                    <Handbag size={32} weight="bold" />
+                  </ShopCartContainer>
+                </div>
+              </footer>
+            </Product>
             )
           })
         }
