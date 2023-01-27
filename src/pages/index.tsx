@@ -12,6 +12,9 @@ import Stripe from "stripe";
 
 import { GetStaticProps } from "next";
 
+import { useContext } from 'react'
+import { shopCartContext } from '../context/shopCartContext'
+
 
 
 interface HomeProps {
@@ -30,6 +33,7 @@ export default function Home({products}:HomeProps) {
       spacing: 48
     }
   });
+
   return (
     <>
       <Head>
