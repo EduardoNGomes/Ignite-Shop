@@ -1,4 +1,7 @@
-import { HomeContainer, Product } from "@/styles/pages/home";
+import { HomeContainer, InfoContainer, Product, ShopCartContainer } from "@/styles/pages/home";
+
+import { Handbag } from 'phosphor-react'
+
 
 import Image from "next/image";
 import Link from "next/link";
@@ -54,8 +57,15 @@ export default function Home({products}:HomeProps) {
                   <Image src={product.imageUrl} width="520" height="480" alt=""/>
         
                   <footer>
-                    <strong> {product.name}</strong>
-                    <span>{product.price}</span>
+                    <div>
+                      <InfoContainer>
+                        <strong> {product.name}</strong>
+                        <span>{product.price}</span>
+                      </InfoContainer>
+                      <ShopCartContainer>
+                        <Handbag size={32} weight="bold" />
+                      </ShopCartContainer>
+                    </div>
                   </footer>
                 </Product>
               </Link>
