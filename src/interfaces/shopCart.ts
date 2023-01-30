@@ -3,4 +3,6 @@ export interface shopCartListProps {
   name: string;
   imageUrl: string;
   price: string;
+  defaultPriceId:string
+
 }

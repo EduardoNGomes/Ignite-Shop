@@ -1,47 +1,37 @@
-import { stripe } from '@/lib/stripe'
 import { ImageContainer, ProductContainer, ProductDetails } from '@/styles/pages/product'
-import axios from 'axios'
-import { GetStaticPaths, GetStaticProps } from 'next'
+
+
 import Head from 'next/head'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useContext } from 'react'
+
+import {shopCartContext} from '../../context/shopCartContext'
+
+
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
 
 interface ProductProps{
-  product: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-    description: string;
-    defaultPriceId: string;
-  }
+  product: PProps
+}
+
+interface PProps {
+  id: string;
+  name: string;
+  imageUrl: string;
+  price: string;
+  description: string;
+  defaultPriceId: string;
 }
 
 export default function Product({product}:ProductProps){
-  const [isCreatingCheckoutSession,setIsCreatingCheckoutSession] = useState(false)
 
-  async function handleBuyButton() {
-    try {
+  const {addItem} = useContext(shopCartContext)
 
-      setIsCreatingCheckoutSession(true);
 
-      const response = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId,
-      })
-
-      const { checkoutUrl } = response.data;
-
-      window.location.href = checkoutUrl;
-    } catch (err) {
-      setIsCreatingCheckoutSession(false);
-
-      alert('Falha ao redirecionar ao checkout!')
-    }
-  }
-
-  function handleAddItem(product:ProductsProps){
+  function handleAddItem(product:PProps){
+    console.log(product)
     addItem(product)
   }
 
@@ -61,10 +51,9 @@ export default function Product({product}:ProductProps){
           <p>{product.description}</p>
 
           <button 
-            onClick={handleBuyButton}
-            disabled={isCreatingCheckoutSession}
+            onClick={() => handleAddItem(product)}
           >
-            Comprar agora
+            Colocar na sacola
           </button>
         </ProductDetails>
 

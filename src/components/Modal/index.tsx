@@ -8,11 +8,40 @@ import { Handbag,X } from 'phosphor-react'
 import * as Dialog from '@radix-ui/react-dialog';
 
 import Image from 'next/image'
+import axios from 'axios'
 
 
 export function Modal(){
   const {shopCart:{shopCartList},removeItem} = useContext(shopCartContext)
   const [totalPrice, setTotalPrice] = useState('')
+
+  const [isCreatingCheckoutSession,setIsCreatingCheckoutSession] = useState(false)
+
+  async function handleBuyButton() {
+    // console.log(shopCartList)
+    try {
+      const priceId = shopCartList.map(item =>{
+        return {
+          price: item.defaultPriceId,
+          quantity:1
+
+        }
+      })
+      setIsCreatingCheckoutSession(true);
+
+      const response = await axios.post('/api/checkout', {
+        priceId
+      })
+
+      const { checkoutUrl } = response.data;
+
+      window.location.href = checkoutUrl;
+    } catch (err) {
+      setIsCreatingCheckoutSession(false);
+
+      alert('Falha ao redirecionar ao checkout!')
+    }
+  }
 
 
   function handleRemoveItem(id:string){
@@ -93,7 +122,10 @@ export function Modal(){
                 }
               </span>
             </div>
-            <button>Finalizar Compra</button>
+            <button
+              onClick={handleBuyButton}
+              disabled={isCreatingCheckoutSession}
+            >Finalizar Compra</button>
           </ValueBox>
           <Close>
             <X size={24} weight='bold'/>

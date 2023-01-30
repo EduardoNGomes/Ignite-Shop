@@ -184,6 +184,15 @@ export const ValueBox = styled('div',{
 
     '&:hover':{
       opacity:.5
+    },
+
+    '&:disabled': {
+      opacity: 0.6,
+      cursor: 'not-allowed'
+    },
+
+    '&:not(:disabled):hover':{
+      backgroundColor:'$green300'
     }
   }
 })

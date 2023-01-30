@@ -1,5 +1,5 @@
 import { stripe } from "@/lib/stripe";
-import { ImageContainer, SuccessContainer } from "@/styles/pages/succes";
+import { ImageContainer, SuccessContainer } from "@/styles/pages/success";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
