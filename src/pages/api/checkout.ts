@@ -3,7 +3,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse){
   const { priceId } = req.body
-  console.log(priceId)
   if(req.method !== 'POST'){
     return res.status(405).json({ error:'Method not allowed' });
   }

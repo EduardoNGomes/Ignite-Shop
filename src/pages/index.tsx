@@ -35,7 +35,7 @@ interface HomeProps {
 
 
 export default function Home({products}:HomeProps) {
-  const {shopCart, addItem, removeItem} = useContext(shopCartContext)
+  const {addItem} = useContext(shopCartContext)
   
   const [sliderRef] = useKeenSlider({
     slides: {

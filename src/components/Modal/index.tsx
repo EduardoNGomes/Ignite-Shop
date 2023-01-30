@@ -18,7 +18,6 @@ export function Modal(){
   const [isCreatingCheckoutSession,setIsCreatingCheckoutSession] = useState(false)
 
   async function handleBuyButton() {
-    // console.log(shopCartList)
     try {
       const priceId = shopCartList.map(item =>{
         return {
