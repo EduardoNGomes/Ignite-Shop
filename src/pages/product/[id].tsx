@@ -11,6 +11,7 @@ import {shopCartContext} from '../../context/shopCartContext'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
+import { useRouter } from 'next/router'
 
 interface ProductProps{
   product: PProps
@@ -26,12 +27,17 @@ interface PProps {
 }
 
 export default function Product({product}:ProductProps){
+  const { isFallback } = useRouter()
 
   const {addItem} = useContext(shopCartContext)
 
 
   function handleAddItem(product:PProps){
     addItem(product)
+  }
+
+  if (isFallback) { 
+    return 'Loading...'
   }
 
   return(
@@ -66,7 +72,7 @@ export const getStaticPaths:GetStaticPaths = async () =>{
     paths: [
       { params: {id:'prod_NEfCvSX6fLgWkL'}}
     ],
-    fallback:false,
+    fallback:true,
   }
 }
 
