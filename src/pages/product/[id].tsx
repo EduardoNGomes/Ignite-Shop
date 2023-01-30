@@ -31,7 +31,6 @@ export default function Product({product}:ProductProps){
 
 
   function handleAddItem(product:PProps){
-    console.log(product)
     addItem(product)
   }
 
@@ -67,7 +66,7 @@ export const getStaticPaths:GetStaticPaths = async () =>{
     paths: [
       { params: {id:'prod_NEfCvSX6fLgWkL'}}
     ],
-    fallback:true,
+    fallback:false,
   }
 }
 
@@ -79,7 +78,7 @@ export const getStaticProps: GetStaticProps<any, {id: string}> = async ({params}
     expand:['default_price']
   })
 
-  const price = product.default_price as Stripe.Price
+  const price = product.default_price! as Stripe.Price
 
   return{
     props:{
